@@ -1,13 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { resetUserSession } from '../sevice/AuthService';
 import { getUser } from '../sevice/AuthService'
 import router from 'next/router';
-const Profile = () => {
 
-    const user = getUser();
-    const name = user !== undefined && user ? user.name : ""
-    console.log("name", name)
-    console.log("user", user)
+type User = {
+    name?: string
+    username?: string
+}
+
+const Profile = () => {
+    const [userData, setUserData] = useState<User>({});
+    useEffect(() => {
+        const user = getUser();
+        if (user !== undefined && user) {
+            setUserData(user)
+        }
+    }, [])
 
     const logoutHandler = () => {
         resetUserSession();
@@ -20,11 +28,11 @@ const Profile = () => {
                 <p className='title'>You have been loggined in!!!!</p>
                 <div className='blockName'>
                     <span className='span1'>First Name:</span>
-                    <span className='span2'>{name}</span>
+                    <span className='span2'>{userData.name}</span>
                 </div>
                 <div className='blockName'>
                     <span className='span1'>Last Name:</span>
-                    {/* <span className='span2'>{user?.username}</span> */}
+                    <span className='span2'>{userData.username}</span>
                 </div>
                 <div className='blockName'>
                     <span className='span1'>Email: </span>

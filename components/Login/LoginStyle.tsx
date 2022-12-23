@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 export const WrapperLogin = styled.div`
     width: 100%;
@@ -13,6 +13,11 @@ export const WrapperLogin = styled.div`
     z-index: 5;
     padding: 0 25px;
 `
+const breatheAnimation = keyframes`
+    0% {box-shadow: none;}
+    100% { box-shadow: rgba(207, 103, 228, 1) -30px 0px 50px 10px, rgba(127, 0, 255, 1) 0px 0px 50px 10px, rgba(103, 160, 228, 1) 30px 0px 50px 10px;}
+`
+
 export const BlockForm = styled.form`
     position: relative;
     display: flex;
@@ -24,6 +29,9 @@ export const BlockForm = styled.form`
     padding: 30px;
     border-radius: 4px;
     box-shadow: rgba(207, 103, 228, 1) -30px 0px 50px 10px, rgba(127, 0, 255, 1) 0px 0px 50px 10px, rgba(103, 160, 228, 1) 30px 0px 50px 10px;
+    animation-name: ${breatheAnimation};
+    animation-duration: 1.5s;
+    animation-iteration-count: 1;
 `
 export const BlockInput = styled.div`
     display: flex;

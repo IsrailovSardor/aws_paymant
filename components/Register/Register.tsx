@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { BlockForm, BlockInput, BlockItem, Button, WrapperRegister } from './RegisterStyle'
+import { BlockForm, BlockInput, BlockItem, Button, Modal, WrapperRegister } from './RegisterStyle'
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
@@ -12,11 +12,12 @@ interface Props {
 const registerUrl = 'https://0e4l76puj4.execute-api.eu-central-1.amazonaws.com/prod-sardor-test/register';
 
 const Register = ({ onClose }: Props) => {
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-    const [message, setMessage] = useState<any>(null);
+    const [name, setName] = useState<string>('')
+    const [email, setEmail] = useState<string>('')
+    const [username, setUsername] = useState<string>('')
+    const [password, setPassword] = useState<string>('')
+    const [modal, setModal] = useState<boolean>(false)
+    const [message, setMessage] = useState<string>('');
 
     const submitHandler = (e: any) => {
         e.preventDefault();
@@ -24,7 +25,7 @@ const Register = ({ onClose }: Props) => {
             setMessage('All fields are required');
             return;
         }
-        setMessage(null);
+        setMessage('');
         const requestConfig = {
             headers: {
                 "Cache-Control": null,
@@ -40,8 +41,10 @@ const Register = ({ onClose }: Props) => {
         }
         axios.post(registerUrl, requestBody, requestConfig)
             .then(response => {
-                setMessage('Registeration Successful')
-                alert('Registeration Successful')
+                setModal(true)
+                setTimeout(() => {
+                    onClose()
+                }, 1500)
             })
             .catch(error => {
                 if (error.response.status === 401) {
@@ -79,30 +82,36 @@ const Register = ({ onClose }: Props) => {
                 <BlockInput>
                     <input type="text" placeholder='name'
                         value={name}
+                        required
                         onChange={(e) => setName(e.target.value)}
                     />
-                    {/* <span>eror</span> */}
                 </BlockInput>
                 <BlockInput>
-                    <input type="text" placeholder='email'
+                    <input type="email" placeholder='email'
                         value={email}
+                        required
                         onChange={(e) => setEmail(e.target.value)} />
-                    {/* <span>eror</span> */}
                 </BlockInput>
                 <BlockInput>
                     <input type="text" placeholder='username'
                         value={username}
+                        required
                         onChange={(e) => setUsername(e.target.value)} />
-                    {/* <span>eror</span> */}
                 </BlockInput>
                 <BlockInput>
                     <input type="password" placeholder='password'
                         value={password}
+                        required
                         onChange={(e) => setPassword(e.target.value)} />
-                    {/* <span>eror</span> */}
+                    <span>{message}</span>
                 </BlockInput>
                 <Button type='submit'>Register</Button>
             </BlockForm>
+            {modal &&
+                <Modal>
+                    <p>Registeration Successful</p>
+                </Modal>
+            }
         </WrapperRegister>
     )
 }

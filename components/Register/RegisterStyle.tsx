@@ -83,3 +83,18 @@ export const BlockItem = styled.div`
     color: rgb(125, 125, 125);
     margin-bottom: 10px;
 `
+export const Modal = styled.div`
+    width: fit-content;
+    height: auto;
+    padding: 20px 40px;
+    border: 2px;
+    box-shadow: #02bc02 0px 0px 40px 20px;
+    background-color: #2c2c2c;
+    color: rgb(125, 125, 125);
+    font-size: 16px;
+    font-weight: 500;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`

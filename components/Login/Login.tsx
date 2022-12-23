@@ -12,9 +12,9 @@ interface Props {
 const loginAPIUrl = 'https://0e4l76puj4.execute-api.eu-central-1.amazonaws.com/prod-sardor-test/login';
 
 const Login = ({ onClose }: Props) => {
-    const [username, setUsername] = useState('sardorsardor2');
-    const [password, setPassword] = useState('sardorsardor2');
-    const [errorMessage, setErrorMessage] = useState<any>(null);
+    const [username, setUsername] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const [errorMessage, setErrorMessage] = useState<string>('');
 
 
     const submitHandler = (event: any) => {
@@ -24,7 +24,7 @@ const Login = ({ onClose }: Props) => {
             return;
         }
 
-        setErrorMessage(null);
+        setErrorMessage('');
         const requestConfig = {
             headers: {
                 'x-api-key': 'WzMb4C91LO2lNTxgncDAm18iHYMteA6t7ikI36oT'
@@ -74,14 +74,12 @@ const Login = ({ onClose }: Props) => {
                     <p>Login</p>
                 </BlockItem>
                 <BlockInput>
-                    <input type="text" value={username} onChange={event => setUsername(event.target.value)} />
-                    {/* <span>eror</span> */}
+                    <input type="text" value={username} required onChange={event => setUsername(event.target.value)} />
                 </BlockInput>
                 <BlockInput>
-                    <input type="password" value={password} onChange={event => setPassword(event.target.value)} />
-                    {/* <span>eror</span> */}
+                    <input type="password" value={password} required onChange={event => setPassword(event.target.value)} />
+                    {errorMessage && <span >{errorMessage}</span>}
                 </BlockInput>
-                {errorMessage && <p className="message">{errorMessage}</p>}
                 <Button type='submit'>Login</Button>
             </BlockForm>
         </WrapperLogin>

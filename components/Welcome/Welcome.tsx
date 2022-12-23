@@ -6,8 +6,8 @@ import Login from '../Login/Login'
 import Register from '../Register/Register';
 
 const Welcome = () => {
-    const [login, setLogin] = useState(false)
-    const [register, setRegister] = useState(false)
+    const [login, setLogin] = useState<boolean>(false)
+    const [register, setRegister] = useState<boolean>(false)
 
     return (
         <div className='WelcomWrapper'>
