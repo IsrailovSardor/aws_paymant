@@ -16,12 +16,13 @@ const Register = ({ onClose }: Props) => {
     const [email, setEmail] = useState<string>('')
     const [username, setUsername] = useState<string>('')
     const [password, setPassword] = useState<string>('')
+    const [balance, setBalance] = useState<string>('')
     const [modal, setModal] = useState<boolean>(false)
     const [message, setMessage] = useState<string>('');
 
     const submitHandler = (e: any) => {
         e.preventDefault();
-        if (username.trim() === '' || email.trim() === '' || name.trim() === '' || password.trim() === '') {
+        if (username.trim() === '' || balance.trim() === '' || email.trim() === '' || name.trim() === '' || password.trim() === '') {
             setMessage('All fields are required');
             return;
         }
@@ -37,7 +38,8 @@ const Register = ({ onClose }: Props) => {
             username: username,
             email: email,
             name: name,
-            password: password
+            password: password,
+            balance: balance
         }
         axios.post(registerUrl, requestBody, requestConfig)
             .then(response => {
@@ -97,6 +99,12 @@ const Register = ({ onClose }: Props) => {
                         value={username}
                         required
                         onChange={(e) => setUsername(e.target.value)} />
+                </BlockInput>
+                <BlockInput>
+                    <input type="text" placeholder='blance'
+                        value={balance}
+                        required
+                        onChange={(e) => setBalance(e.target.value)} />
                 </BlockInput>
                 <BlockInput>
                     <input type="password" placeholder='password'

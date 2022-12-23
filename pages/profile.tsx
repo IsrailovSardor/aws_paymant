@@ -6,10 +6,13 @@ import router from 'next/router';
 type User = {
     name?: string
     username?: string
+    email?: string
+    balance?: string
 }
 
 const Profile = () => {
     const [userData, setUserData] = useState<User>({});
+    console.log(userData)
     useEffect(() => {
         const user = getUser();
         if (user !== undefined && user) {
@@ -31,16 +34,16 @@ const Profile = () => {
                     <span className='span2'>{userData.name}</span>
                 </div>
                 <div className='blockName'>
-                    <span className='span1'>Last Name:</span>
+                    <span className='span1'>Email: </span>
+                    <span className='span2'>{userData.email}</span>
+                </div>
+                <div className='blockName'>
+                    <span className='span1'>Username: </span>
                     <span className='span2'>{userData.username}</span>
                 </div>
                 <div className='blockName'>
-                    <span className='span1'>Email: </span>
-                    <span className='span2'>Sardor@mail.ru</span>
-                </div>
-                <div className='blockName'>
                     <span className='span1'>Balance: </span>
-                    <span className='span2'>0 som</span>
+                    <span className='span2'>{userData.balance} som</span>
                 </div>
                 <button className='btn' onClick={logoutHandler}>Sign out</button>
             </div>
